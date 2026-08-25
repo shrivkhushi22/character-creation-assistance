@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 
 #initialization for class data
@@ -18,6 +19,15 @@ for c in classes:
 
 classes_df = pd.DataFrame(class_data)
 print(classes_df.columns)
+
+ability_names = [
+    'STR',
+    'DEX',
+    'CON',
+    'INT',
+    'WIS',
+    'CHA'
+]
 
 #---
 #proficiency options and number of proficiency options for character creation 
@@ -66,31 +76,40 @@ print(proficiency_data)
 #primary ability for character creation
 #---
 
+pa = classes_df['primary_ability']
+primary = pd.DataFrame()
+primary['abilities'] = pa.iloc[:]['desc']
+
+
+abilities = [
+    'Strength',
+    'Dexterity',
+    'Constitution',
+    'Wisdom',
+    'Intelligence',
+    'Charisma'
+]
+
+#finish this and split ability description into list of abilities
+
 #---
 #hit_die for character creation
 #---
 hit_dice = classes_df['hit_die']
-print(hit_dice)
+hit_dice
 
 #---
 #saving_throws for character creation
 #---
 
-saving_throw_names = [
-    'STR',
-    'DEX',
-    'CON',
-    'INT',
-    'WIS',
-    'CHA'
-]
+
 
 saving_throws = classes_df['saving_throws']
 st_data = []
 for i in range(len(saving_throws)):
     st_name = saving_throws.iloc[i][0]['name']
     dic = {}
-    for s in saving_throw_names:
+    for s in ability_names:
         dic[s] = 0
     dic[st_name] = 1    
     st_data.append(dic)
@@ -100,9 +119,33 @@ print(st_data)
 #spell_casting for character creation
 #---
 
+sc = classes_df[['name', 'spellcasting']]
+
+spellcasters = pd.DataFrame()
+spellcasters['name'] = sc['name']
+spellcasters['spellcasting'] = sc['spellcasting']
+spellcasters['spellcaster'] = sc['spellcasting'].fillna(False).astype(bool)
+
+casters = spellcasters[spellcasters['spellcaster']==True]
+caster_names = casters['name'].tolist()
+
+sc_ability = []
+for i in range(len(spellcasters)):
+    ab = None
+    class_name = spellcasters['name'].iloc[i]
+    if class_name in caster_names:
+        ab = spellcasters['spellcasting'].iloc[i]['spellcasting_ability']['name']
+    else:
+        ab = None
+    sc_ability.append(ab)
+sc_ability
+
+spellcasters['casting_ability'] = sc_ability
+
 
 print(classes_df.columns)
-print(classes_df['saving_throws'])
-print(classes_df['spellcasting'].iloc[1])
+print(classes_df['primary_ability'].iloc[4])
+print(classes_df['primary_ability'].iloc[0])
+print(classes_df[['name','spellcasting']])
 
 print(classes_df[['name', 'proficiency_choices']].iloc[10])

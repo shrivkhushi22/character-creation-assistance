@@ -2,13 +2,14 @@
 
 ### recommendation - for character, need to recommend class, subclass, race, and ability scores
 
+# review using new data
 # class - proficiency options (sourced from proficiency choices - can determine what kind of things person wants to be good at as a secondary choice)
 #       - primary_ability (primary ability score that can determine playstyle of character)
 #       - hit_die (determines the type of dice that a character uses for hp)
 #       - saving_throws (can determine ability to defend against danger - 6 types (by differing ability score))
 #       - spellcasting (use to determine if class uses spellcasting in general, and what ability score is used for spellcasting) - can be more difficult to deal with spellcasting in general but ability does not influence difficulty of spellcasting, (can determine playstyle of character)
 
-# subclass - 
+# subclass - figure this out later bc data is copyrighted heavily
 
 # race - 
 

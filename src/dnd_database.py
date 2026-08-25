@@ -16,11 +16,6 @@ classes = dfs.get("classes")
 phb_name_and_desc = classes[(classes['book'] == "Player's Handbook (2024)")][['name', 'description']]
 subclasses = [sc.split('.')[-1] for sc in phb_name_and_desc['description'].tolist()]
 
-phb_name_sc = pd.DataFrame()
-phb_name_sc['name'] = phb_name_and_desc['name']
-phb_name_sc['subclasses'] = subclasses
-phb_name_sc.reset_index()
-
 known_sc = {
     'Barbarian': ['Path of the Berserker', 'Path of the Wild Heart', 'Path of the World Tree', 'Path of the Zealot'],
     'Bard': ['College of Dance', 'College of Glamour', 'College of Lore', 'College of Valor'],
@@ -43,3 +38,4 @@ phb_name_sc['subclasses'] = subclasses
 phb_name_sc.reset_index()
 
 phb_name_sc
+phb_name_and_desc.iloc[0]['description']
