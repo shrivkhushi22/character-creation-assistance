@@ -70,7 +70,9 @@ for i in range(len(proficiencies)):
         dic[p_name] = 1
     proficiency_data.append(dic)
 
-print(proficiency_data)
+pro = pd.DataFrame(proficiency_data)
+pro['name'] = classes_df['name']
+pro
 
 #---   
 #primary ability for character creation
@@ -78,17 +80,18 @@ print(proficiency_data)
 
 pa = classes_df['primary_ability']
 primary = pd.DataFrame()
-primary['abilities'] = pa.iloc[:]['desc']
+primary['abilities'] = pa
+
+primary["desc"] = primary["abilities"].apply(lambda x: x["desc"])
+
+primary[["ability_1", "ability_2"]] = (
+    primary["desc"]
+    .str.split(r"\s+(?:or|and)\s+", n=1, expand=True)
+)
+
+primary
 
 
-abilities = [
-    'Strength',
-    'Dexterity',
-    'Constitution',
-    'Wisdom',
-    'Intelligence',
-    'Charisma'
-]
 
 #finish this and split ability description into list of abilities
 
@@ -147,5 +150,6 @@ print(classes_df.columns)
 print(classes_df['primary_ability'].iloc[4])
 print(classes_df['primary_ability'].iloc[0])
 print(classes_df[['name','spellcasting']])
+
 
 print(classes_df[['name', 'proficiency_choices']].iloc[10])
